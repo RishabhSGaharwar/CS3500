@@ -1,0 +1,34 @@
+file1 is loaded in main memory and is assigned process id 1
+file2 is loaded in main memory and is assigned process id 2
+file3 is loaded in main memory and is assigned process id 3
+Command: load 11, 1001; Result: Value of 11 is now stored in addr 1001
+Command: load 21, 2001; Result: Value of 21 is now stored in addr 2001
+Command: add 1001 2001 3001; Result: Value in addr 1001 = 11, addr 2001 = 21, addr 3001 = 32
+Command: print 3000; Result: Value in addr 3000 = 0
+Command: print 3001; Result: Value in addr 3001 = 32
+Command: print 3002; Result: Value in addr 3002 = 0
+file4 is loaded in main memory and is assigned process id 4
+In Main Memory 2
+In Main Memory 3
+In Main Memory 4
+In Virtual Memory 1
+Command: load 12, 1002; Result: Value of 12 is now stored in addr 1002
+Command: load 22, 2002; Result: Value of 22 is now stored in addr 2002
+Command: sub 2002 1002 3002; Result: Value in addr 2002 = 22, addr 1002 = 12, addr 3002 = 10
+Command: print 3002; Result: Value in addr 3002 = 10
+Command: load 12, 1002; Result: Value of 12 is now stored in addr 1002
+Command: load 22, 2002; Result: Value of 22 is now stored in addr 2002
+Command: sub 2002 1002 3002; Result: Value in addr 2002 = 22, addr 1002 = 12, addr 3002 = 10
+Command: print 3002; Result: Value in addr 3002 = 10
+Command: load 13, 1003; Result: Value of 13 is now stored in addr 1003
+Command: load 33, 3003; Result: Value of 33 is now stored in addr 3003
+Command: add 1003 3003 3005; Result: Value in addr 1003 = 13, addr 3003 = 33, addr 3005 = 46
+Command: print 3005; Result: Value in addr 3005 = 46
+Invalid Memory Address7 10000 specified for process id 3
+Command: load 14, 1004; Result: Value of 14 is now stored in addr 1004
+Command: load 24, 2004; Result: Value of 24 is now stored in addr 2004
+Command: sub 2004 1004 3004; Result: Value in addr 2004 = 24, addr 1004 = 14, addr 3004 = 10
+Command: print 3004; Result: Value in addr 3004 = 10
+Invalid PID 1
+Invalid pid in Run 1
+exit

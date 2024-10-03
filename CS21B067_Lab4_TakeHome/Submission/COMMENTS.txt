@@ -1,0 +1,5 @@
+The assignment provided a lot of insights but was placed in a very hectic time.
+It would've been better if this was with Lab 5
+
+There were a lot of ambiguities which should've been made clear.
+We had to cover a lot of edge cases by stating assumptions.

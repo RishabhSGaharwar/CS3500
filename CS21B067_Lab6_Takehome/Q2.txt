@@ -1,0 +1,87 @@
+==12674== Helgrind, a thread error detector
+==12674== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==12674== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==12674== Command: ./prog
+==12674== 
+this should print first
+==12674== ---Thread-Announcement------------------------------------------
+==12674== 
+==12674== Thread #1 is the program's root thread
+==12674== 
+==12674== ---Thread-Announcement------------------------------------------
+==12674== 
+==12674== Thread #2 was created
+==12674==    at 0x4999BE3: clone (clone.S:76)
+==12674==    by 0x499AADE: __clone_internal (clone-internal.c:83)
+==12674==    by 0x49086D8: create_thread (pthread_create.c:295)
+==12674==    by 0x49091FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==12674==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==12674==    by 0x109217: main (main-signal.c:14)
+==12674== 
+==12674== ----------------------------------------------------------------
+==12674== 
+==12674== Possible data race during read of size 4 at 0x10C014 by thread #1
+==12674== Locks held: none
+==12674==    at 0x109245: main (main-signal.c:15)
+==12674== 
+==12674== This conflicts with a previous write of size 4 by thread #2
+==12674== Locks held: none
+==12674==    at 0x1091C8: worker (main-signal.c:8)
+==12674==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==12674==    by 0x4908AC2: start_thread (pthread_create.c:442)
+==12674==    by 0x4999BF3: clone (clone.S:100)
+==12674==  Address 0x10c014 is 0 bytes inside data symbol "done"
+==12674== 
+==12674== ----------------------------------------------------------------
+==12674== 
+==12674== Possible data race during write of size 1 at 0x52A01A5 by thread #1
+==12674== Locks held: none
+==12674==    at 0x4859796: mempcpy (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==12674==    by 0x48FF664: _IO_new_file_xsputn (fileops.c:1235)
+==12674==    by 0x48FF664: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==12674==    by 0x48F4F1B: puts (ioputs.c:40)
+==12674==    by 0x10925D: main (main-signal.c:17)
+==12674==  Address 0x52a01a5 is 21 bytes inside a block of size 1,024 alloc'd
+==12674==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==12674==    by 0x48F2BA3: _IO_file_doallocate (filedoalloc.c:101)
+==12674==    by 0x4901CDF: _IO_doallocbuf (genops.c:347)
+==12674==    by 0x4900F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==12674==    by 0x48FF6D4: _IO_new_file_xsputn (fileops.c:1243)
+==12674==    by 0x48FF6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==12674==    by 0x48F4F1B: puts (ioputs.c:40)
+==12674==    by 0x1091C7: worker (main-signal.c:7)
+==12674==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==12674==    by 0x4908AC2: start_thread (pthread_create.c:442)
+==12674==    by 0x4999BF3: clone (clone.S:100)
+==12674==  Block was alloc'd by thread #2
+==12674== 
+this should print last
+==12674== 
+==12674== Use --history-level=approx or =none to gain increased speed, at
+==12674== the cost of reduced accuracy of conflicting-access information
+==12674== For lists of detected and suppressed errors, rerun with: -s
+==12674== ERROR SUMMARY: 23 errors from 2 contexts (suppressed: 40 from 34)
+
+================================================================================================================================
+
+In this solution, the parent spins and wastes CPU time. This results in asstage of CPU cycles and thus this code 
+inefficient. The program is not correct as under certain situations. 
+As reported by Helgrind, Data Race is also possible.
+
+================================================================================================================================
+==12745== Helgrind, a thread error detector
+==12745== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==12745== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==12745== Command: ./prog
+==12745== 
+this should print first
+this should print last
+==12745== 
+==12745== Use --history-level=approx or =none to gain increased speed, at
+==12745== the cost of reduced accuracy of conflicting-access information
+==12745== For lists of detected and suppressed errors, rerun with: -s
+==12745== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 7 from 7)
+================================================================================================================================
+
+This soltion uses conditional variables and is properly synchronized. Helgrind does not report any errors.
+It preferred over the other code because of better performance (no spin wait)

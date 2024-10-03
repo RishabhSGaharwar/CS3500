@@ -1,0 +1,25 @@
+If a process is currently starving, (i.e. it is in a low priority queue and currently high priority processes are being scheduled)
+
+Since the time slice is 10ms, between two boosts (i.e. in one boost period), a sufficiently long process should get 5% of CPU
+
+This implies 10ms / (S) = 5%
+(Assuming the process under consideration is long enough to be pushed down after its time slice and assuming there are sufficient number of process in highest queue)
+Which gives Boost period S = 200 ms
+
+To set Boost time to 200 ms, we set -B flag to 200
+
+An example command can be:
+./mlfq.py -n 4 -q 10 -l 0,100,0:0,3000,1:0,3000,1 -S -i 1 -B 200 -c
+
+The output calculated by mlfq.py is
+Final statistics:
+  Job  0: startTime   0 - response   0 - turnaround 1804
+  Job  1: startTime   0 - response  10 - turnaround 6099
+  Job  2: startTime   0 - response  11 - turnaround 6100
+
+  Avg  2: startTime n/a - response 7.00 - turnaround 4667.67
+
+Here, time of completion of task 1 is 1804 ms
+Burst time of process 1 is 100ms
+
+So, the CPU usage is 100/1804 = 5.54%

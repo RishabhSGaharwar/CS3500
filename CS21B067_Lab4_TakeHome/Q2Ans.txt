@@ -1,0 +1,123 @@
+The first program was as follows:
+===========================================================================
+**Prog1.c**
+#include <stdio.h>
+
+int main(void)
+{
+    int *data = (int *)(malloc(100*sizeof(int)));
+    if(data==NULL)
+    {
+        printf("Malloc failed\n");
+        return 1;
+    }
+    data[100] = 0;
+    printf("Index 100 was assigned value = 0\n");
+    //free(data);
+    return 0;
+}
+============================================================================
+I compiled it using 
+    gcc -o Program1 Prog1.c
+
+On running    
+    ./Program1
+
+The output I received was : Index 100 was assigned value = 0
+
+However, on running
+    valgrind ./Program1
+
+I got the following output:
+    ==57870== Memcheck, a memory error detector
+    ==57870== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+    ==57870== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+    ==57870== Command: ./Program1
+    ==57870== 
+    ==57870== Invalid write of size 4
+    ==57870==    at 0x1091AA: main (in /home/rgs/Desktop/Sem 5/CS3500/CS21B067_Lab4_TakeHome/Program1)
+    ==57870==  Address 0x4a981d0 is 0 bytes after a block of size 400 alloc'd
+    ==57870==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+    ==57870==    by 0x10917E: main (in /home/rgs/Desktop/Sem 5/CS3500/CS21B067_Lab4_TakeHome/Program1)
+    ==57870== 
+    Last element assigned value 0
+    ==57870== 
+    ==57870== HEAP SUMMARY:
+    ==57870==     in use at exit: 400 bytes in 1 blocks
+    ==57870==   total heap usage: 2 allocs, 1 frees, 1,424 bytes allocated
+    ==57870== 
+    ==57870== LEAK SUMMARY:
+    ==57870==    definitely lost: 400 bytes in 1 blocks
+    ==57870==    indirectly lost: 0 bytes in 0 blocks
+    ==57870==      possibly lost: 0 bytes in 0 blocks
+    ==57870==    still reachable: 0 bytes in 0 blocks
+    ==57870==         suppressed: 0 bytes in 0 blocks
+    ==57870== Rerun with --leak-check=full to see details of leaked memory
+    ==57870== 
+    ==57870== For lists of detected and suppressed errors, rerun with: -s
+    ==57870== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+Firstly, there is an error.
+The error is an 'Invalid write' (of size 4 i.e. sizeof int) at index 100, since it is out of bounds of allocated data.
+Also the memory is not freed and there is a memory leak.
+
+=======================================================================================================================
+The second program was as follows:
+===========================================================================
+**Prog2.c**
+#include <stdio.h>
+
+int main(void)
+{
+    int *data = (int *)(malloc(100*sizeof(int)));
+    if(data==NULL)
+    {
+        printf("Malloc failed\n");
+        return 1;
+    }
+    free(data);
+    printf("%d\n", data[20]);
+    return 0;
+}
+============================================================================
+I compiled it using 
+    gcc -o Program2 Prog2.c
+
+On running    
+    ./Program2
+
+The output I received was : 0
+I did not receive a garbage value for some reason.
+
+However, on running
+    valgrind ./Program2
+
+I got the following output:
+    ==50330== Memcheck, a memory error detector
+    ==50330== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+    ==50330== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+    ==50330== Command: ./Program2
+    ==50330== 
+    ==50330== Invalid read of size 4
+    ==50330==    at 0x1091F4: main (in /home/rgs/Desktop/Sem 5/CS3500/CS21B067_Lab4_TakeHome/Program2)
+    ==50330==  Address 0x4a98090 is 80 bytes inside a block of size 400 free'd
+    ==50330==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+    ==50330==    by 0x1091EB: main (in /home/rgs/Desktop/Sem 5/CS3500/CS21B067_Lab4_TakeHome/Program2)
+    ==50330==  Block was alloc'd at
+    ==50330==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+    ==50330==    by 0x1091BE: main (in /home/rgs/Desktop/Sem 5/CS3500/CS21B067_Lab4_TakeHome/Program2)
+    ==50330== 
+    0
+    ==50330== 
+    ==50330== HEAP SUMMARY:
+    ==50330==     in use at exit: 0 bytes in 0 blocks
+    ==50330==   total heap usage: 2 allocs, 2 frees, 1,424 bytes allocated
+    ==50330== 
+    ==50330== All heap blocks were freed -- no leaks are possible
+    ==50330== 
+    ==50330== For lists of detected and suppressed errors, rerun with: -s
+    ==50330== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+An error was detected : Invalid read of size 4 
+(integer)
+Basically, the location was alloc'd and freed, so the reading was invalid. The memory was freed before we were done with it.

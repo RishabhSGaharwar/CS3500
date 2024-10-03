@@ -1,0 +1,137 @@
+file1 is loaded in main memory and is assigned process id 1
+file2 is loaded in main memory and is assigned process id 2
+file3 is loaded in main memory and is assigned process id 3
+file7 could not be loaded - file does not exist
+
+Command: load 11, 1001; Result: Value of 11 is now stored in addr 1001
+Command: load 21, 2001; Result: Value of 21 is now stored in addr 2001
+Command: add 1001 2001 3001; Result: Value in addr 1001 = 11, addr 2001 = 21, addr 3001 = 32
+Command: print 3000; Result: Value in addr 3000 = 0
+Command: print 3001; Result: Value in addr 3001 = 32
+Command: print 3002; Result: Value in addr 3002 = 0
+
+Command: load 13, 1003; Result: Value of 13 is now stored in addr 1003
+Command: load 33, 3003; Result: Value of 33 is now stored in addr 3003
+Command: add 1003 3003 3005; Result: Value in addr 1003 = 13, addr 3003 = 33, addr 3005 = 0
+Command: print 3005; Result: Value in addr 3005 = 46
+Invalid Memory Address 10000 specified for process id 3
+
+Command: load 12, 1002; Result: Value of 12 is now stored in addr 1002
+Command: load 22, 2002; Result: Value of 22 is now stored in addr 2002
+Command: sub 2002 1002 3002; Result: Value in addr 2002 = 22, addr 1002 = 12, addr 3002 = 0
+Command: print 3002; Result: Value in addr 3002 = 10
+
+
+ListPr called:
+	In Main Memory 1
+	In Main Memory 3
+	In Virtual Memory 2
+
+Command: load 11, 1001; Result: Value of 11 is now stored in addr 1001
+Command: load 21, 2001; Result: Value of 21 is now stored in addr 2001
+Command: add 1001 2001 3001; Result: Value in addr 1001 = 11, addr 2001 = 21, addr 3001 = 32
+Command: print 3000; Result: Value in addr 3000 = 0
+Command: print 3001; Result: Value in addr 3001 = 32
+Command: print 3002; Result: Value in addr 3002 = 0
+
+file4 is loaded in main memory and is assigned process id 4
+
+Command: load 14, 1004; Result: Value of 14 is now stored in addr 1004
+Command: load 24, 2004; Result: Value of 24 is now stored in addr 2004
+Command: sub 2004 1004 3004; Result: Value in addr 2004 = 24, addr 1004 = 14, addr 3004 = 0
+Command: print 3004; Result: Value in addr 3004 = 10
+
+
+
+ListPr called:
+	In Main Memory 1
+	In Main Memory 2
+	In Main Memory 4
+	In Virtual Memory 3
+
+
+
+
+
+
+l: Wed Oct  4 00:02:43 2023
+PID : 1 in Main Memory
+	Logical Page Number 0 Translates to Physical Page Number 0
+	Logical Page Number 1 Translates to Physical Page Number 1
+	Logical Page Number 2 Translates to Physical Page Number 2
+	Logical Page Number 3 Translates to Physical Page Number 3
+	Logical Page Number 4 Translates to Physical Page Number 4
+	Logical Page Number 5 Translates to Physical Page Number 5
+	Logical Page Number 6 Translates to Physical Page Number 6
+	Logical Page Number 7 Translates to Physical Page Number 7
+
+PID : 2 in Main Memory
+	Logical Page Number 0 Translates to Physical Page Number 24
+	Logical Page Number 1 Translates to Physical Page Number 25
+	Logical Page Number 2 Translates to Physical Page Number 26
+	Logical Page Number 3 Translates to Physical Page Number 27
+	Logical Page Number 4 Translates to Physical Page Number 28
+	Logical Page Number 5 Translates to Physical Page Number 29
+	Logical Page Number 6 Translates to Physical Page Number 30
+	Logical Page Number 7 Translates to Physical Page Number 31
+	Logical Page Number 8 Translates to Physical Page Number 32
+	Logical Page Number 9 Translates to Physical Page Number 33
+	Logical Page Number 10 Translates to Physical Page Number 34
+	Logical Page Number 11 Translates to Physical Page Number 35
+	Logical Page Number 12 Translates to Physical Page Number 36
+	Logical Page Number 13 Translates to Physical Page Number 37
+	Logical Page Number 14 Translates to Physical Page Number 38
+	Logical Page Number 15 Translates to Physical Page Number 39
+
+PID : 3 in Virtual Memory
+	Logical Page Number 0 Translates to Physical Page Number 0
+	Logical Page Number 1 Translates to Physical Page Number 1
+	Logical Page Number 2 Translates to Physical Page Number 2
+	Logical Page Number 3 Translates to Physical Page Number 3
+	Logical Page Number 4 Translates to Physical Page Number 4
+	Logical Page Number 5 Translates to Physical Page Number 5
+	Logical Page Number 6 Translates to Physical Page Number 6
+	Logical Page Number 7 Translates to Physical Page Number 7
+	Logical Page Number 8 Translates to Physical Page Number 8
+	Logical Page Number 9 Translates to Physical Page Number 9
+	Logical Page Number 10 Translates to Physical Page Number 10
+	Logical Page Number 11 Translates to Physical Page Number 11
+	Logical Page Number 12 Translates to Physical Page Number 12
+	Logical Page Number 13 Translates to Physical Page Number 13
+	Logical Page Number 14 Translates to Physical Page Number 14
+	Logical Page Number 15 Translates to Physical Page Number 15
+
+PID : 4 in Main Memory
+	Logical Page Number 0 Translates to Physical Page Number 8
+	Logical Page Number 1 Translates to Physical Page Number 9
+	Logical Page Number 2 Translates to Physical Page Number 10
+	Logical Page Number 3 Translates to Physical Page Number 11
+	Logical Page Number 4 Translates to Physical Page Number 12
+	Logical Page Number 5 Translates to Physical Page Number 13
+	Logical Page Number 6 Translates to Physical Page Number 14
+	Logical Page Number 7 Translates to Physical Page Number 15
+	Logical Page Number 8 Translates to Physical Page Number 16
+	Logical Page Number 9 Translates to Physical Page Number 17
+	Logical Page Number 10 Translates to Physical Page Number 18
+	Logical Page Number 11 Translates to Physical Page Number 19
+	Logical Page Number 12 Translates to Physical Page Number 20
+	Logical Page Number 13 Translates to Physical Page Number 21
+	Logical Page Number 14 Translates to Physical Page Number 22
+	Logical Page Number 15 Translates to Physical Page Number 23
+	Logical Page Number 16 Translates to Physical Page Number 40
+	Logical Page Number 17 Translates to Physical Page Number 41
+	Logical Page Number 18 Translates to Physical Page Number 42
+	Logical Page Number 19 Translates to Physical Page Number 43
+	Logical Page Number 20 Translates to Physical Page Number 44
+	Logical Page Number 21 Translates to Physical Page Number 45
+	Logical Page Number 22 Translates to Physical Page Number 46
+	Logical Page Number 23 Translates to Physical Page Number 47
+	Logical Page Number 24 Translates to Physical Page Number 48
+	Logical Page Number 25 Translates to Physical Page Number 49
+	Logical Page Number 26 Translates to Physical Page Number 50
+	Logical Page Number 27 Translates to Physical Page Number 51
+	Logical Page Number 28 Translates to Physical Page Number 52
+	Logical Page Number 29 Translates to Physical Page Number 53
+	Logical Page Number 30 Translates to Physical Page Number 54
+	Logical Page Number 31 Translates to Physical Page Number 55
+
